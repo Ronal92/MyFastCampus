@@ -3,6 +3,10 @@
 #Weekly Summary!!
 
 -------------------------------
+#1. 자바의 컴파일 과정
+![](http://i.imgur.com/o8Cuk4p.png)
+
+자바는 사용자가 프로그래밍한 코드를 먼저 javac를 통해 컴파일 한다. 컴파일 된 코드는 .class 파일(바이트코드)로 생성된다. JVM은 바이트코드를 위한 Interpreter인데 JVM이 설치된 시스템이라면 바이트 코드를 실행시킬 수 있다. 
 
 #클래프 파일을 컴파일 하는 2가지 방식 (<-wee2-1)
 - JIT(Just In Time) : 클래스 파일이 호출되는 순간 기계어로 컴파일 됨. 따라서 최초 실행시 약간의 속도 저하가 있다.
@@ -21,7 +25,7 @@
 
 --------------------------------------------
 
-#Java Syntax
+#2. Java Syntax
 
 ## 반복문 (<-wee2-2)
 1. For-loop
@@ -102,33 +106,35 @@
 
 #### 1차원 배열
  
-###### 선언 
+######(1) 선언 
 
-	 ①	int array[] = new int[6];
-				
-	 ②	int[] array2 = new int[6];
+![](http://i.imgur.com/lPDZ1D3.png)
 
 
 > 위 두 가지 방식중에서 ②이 코드 캡쳐링하기가 편하다.(코드 캡처링이란? 수많은 코드줄 중에서 원하는 변수명이나 메소드를 검색으로 찾는 행위)
 
+######(2) 출력
+
+![](http://i.imgur.com/SiZMQ9A.png)
+
 #### 2차원 배열
 
-###### 선언
+######(1) 선언
 ![](http://i.imgur.com/veyRmkS.jpg)
                 
 
-###### 출력
+######(2) 출력
 ![](http://i.imgur.com/PJRAeP4.png)
 
 #### 3차원 배열
 
 
 
-###### 선언
+######(1) 선언
 ![](http://i.imgur.com/9T1QsnM.jpg)
 
 
-###### 출력
+######(2) 출력
 ![](http://i.imgur.com/dtrPJrD.jpg)
 
 
@@ -162,6 +168,35 @@
 
    //  접근 제어자의 범위는 아래 표를 참고하세요~~~!  //
 ![](http://i.imgur.com/ms47IxZ.png)
+
+##Overloading vs Overriding 
+
+![](http://i.imgur.com/THa4hql.png)
+
+##파일 입출력 (<-wee2-5)
+
+여기서는 사용자 입장에서 가장 쓰기 쉬운 NIO 코드를 소개한다. IO에 대한 추가 코드는 (week2-5)를 참고하면 된다.
+
+
+##FileUtil클래스의 readNio()          
+readNio는 NIO에서 파일로부터 입력을 받을 때 사용하도록 정의한 함수이다.
+
+NIO에서 파일로부터 read를 할 때에는 Path를 통해 먼저 불러올 경로를 지정한다.
+
+Files 클래스에 있는 함수(readAllBytes, readAllLines 등)를 사용하여 파일로부터 데이터값을 한번에 읽어들인다.
+
+![](http://i.imgur.com/o7Sc0Xo.png)
+
+
+##FileUtil클래스의 writeNio()
+writeNio()는 NIO에서 파일에 출력할 때 사용하도록 정의한 함수이다.
+
+NIO에서 파일에 write를 할 때에는 Path에 먼저 저장할 경로를 지정한다.
+
+Files.write()를 통해 해당 경로에 사용자의 문자열이 저장된 파일을 쓰도록 한다. 이때, Files.write() 안에는 *content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.APPEND* 등과 같은 옵션이 있기 때문에 필요한 옵션을 사용하면 된다. 
+
+![](http://i.imgur.com/jZYG3iO.png)
+
 
 ##String 합치기 (<-wee2-5)
 --강사님 권고 사항--
@@ -202,7 +237,7 @@ javadoc command : C:\Program Files\Java\jdk1.8.0_101\bin\javadoc.exe ( JDK 설�
 
 
 
-#Java 코드 진행상황
+#3.Java 코드 진행상황
 
  자바코딩이 시작된 첫날은 자바 문법에 익숙해지기 위해 게시판 기능을 제공하는 코드들을 작성하였다. 둘째날부터는 프로그램의 종료와 상관없이 데이터를 저장하기 위해 파일 입출력 기능을 코드에 추가하였다. 현재는 사용자의 입력을 추가하는 부분만 작성된 상태이고, 삭제와 읽기 기능을 추가해야 한다........
 
