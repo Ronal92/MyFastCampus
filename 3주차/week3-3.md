@@ -61,13 +61,17 @@ Constrained Layout을 사용하면서 느낀 점은 전체적으로 파워포인
 ## (1) Spinner
 
 ### Spinner 그림 
+
+
+![](http://3.bp.blogspot.com/-d1pt2GTOZ-I/UjxbCVF-rlI/AAAAAAABGPc/Ed43IyMjGSo/s1600/android-spinner-style-01.PNG)
+
 (출처 : [http://www.broculos.net/2013/09/how-to-change-spinner-text-size-color.html#.WIinclWLTIU](http://www.broculos.net/2013/09/how-to-change-spinner-text-size-color.html#.WIinclWLTIU))
 
 
-![](http://i.imgur.com/wt1Osty.png)
-
 ### Spinner 코드
-![](http://3.bp.blogspot.com/-d1pt2GTOZ-I/UjxbCVF-rlI/AAAAAAABGPc/Ed43IyMjGSo/s1600/android-spinner-style-01.PNG)
+
+
+![](http://i.imgur.com/wt1Osty.png)
 
 ## (2) SeekBar
 
@@ -76,5 +80,5 @@ Constrained Layout을 사용하면서 느낀 점은 전체적으로 파워포인
 
 (출처 : [http://www.android-examples.com/category/android-basics/](http://www.android-examples.com/category/android-basics/))
 
-### SeekBar 코
+### SeekBar 코드
 ![](http://i.imgur.com/6mtpIfi.png)
