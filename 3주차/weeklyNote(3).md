@@ -1,4 +1,4 @@
-[Date : 2017. 01. 21]
+﻿[Date : 2017. 01. 29]
 
 	Weekly Summary!!
 		 이번주는 안드로이드를 처음 배우기 시작하여 안드로이드의 구조와 레이아웃, 이벤트 리스너 등을 기본적으로 배웠습니다. 실습한 내용과 코드는은 저의 [https://github.com/Ronal92/MyFastCampus.git](https://github.com/Ronal92/MyFastCampus.git)을 참고하시면 되고 중요한 거 위주로 요약해 놓았습니다.^^
