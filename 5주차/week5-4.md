@@ -109,10 +109,40 @@ Factory Method의 장점은 클라이언트가 여러 종류의 인스턴스를 
 ----------------------------------------------
 #6. Strategy
 
+Strategy 패턴은 클래스 설계시, 비슷한 기능을 하는 클래스들을 위한 작업입니다. 먼저 비슷한 기능(여기서는 방패, 검, 총)을 인터페이스로 선언한 뒤, 하위 클래스들에서 각각의 정의에 맞게 구현합니다. 클라이언트는 하위 클래스들의 내용을 구체적으로 알 필요 없이 인터페이스만을 참조하여 해당 기능 즉, 메소드를 사용하기만 하면 됩니다. Strategy 패턴의 장점은 기능을 추가할 때, 기존 코드의 변경 없이 클래스를 상속, 추가하기만 하면 됩니다.
 
 
+## 코드 전체 흐름
+
+![](http://i.imgur.com/CI1b98V.png)
+
+
+(1) MainDesignPattern에서는 총, 검, 방패의 공통 기능인 Strategy를 참조변수(strategy)로 선언한 다음, 필요한 기능만을 객체로 인스턴스화( new StrategyShield() )시키면 됩니다. 
+
+(2) Solider 클래스는 Strategy 인터페이스에 정의되어 있는 runStrategy()를 사용할 거지만, 각 기능별로 별도로 만들필요 없이 오직 하나의 runStrategy()만을 사용할 겁니다.
+
+(3) Solier 참조변수인 context로 객체 안에 있는 useStrategy()를 호출할 때, 여러가지 runStrategy() 중에서 자동적으로 StrategyShield의 runStrategy()를 부릅니다.
+
+
+>> Why?? Strategy 참조변수를 선언할 때, StrategyShield 객체를 참조하라고 명령을 주었기 때문에 당연히 Strategy 하위 클래스 중에서 StrategyShield의 메소드를 작동시킬 겁니다.
 
 
 
 -------------------------------------------------
 #7. Strategy CallBack
+
+실행되는 것을 목적으로 다른 오브젝트의 메소드에 전달되는 오브젝트를 말한다.
+특정 로직을 담은 메소드를 실행 시키기 위해 사용하는데, 자바에선 메소드 자체를 파라미터로 전달할 방법은 없기 때문에 메소드가 담긴 오브젝트를 전달해야 한다. ( 출처 : [http://elaia.tistory.com/70](http://elaia.tistory.com/70))
+
+## 코드 전체 흐름
+
+![](http://i.imgur.com/ewC5Jdw.png)
+
+--> 6장의 Strategy 패턴과 비교하면 이해가 더 잘 될 겁니다. Strategy 패턴에서 쓴 코드와의 차이는 **StrategyShield, StrategyGun, StrategySword를 클래스로 설계하여 만들지 않고 직접 익명 클래스**로 만들었습니다. 그리고 **useStrategy()에서 이 익명 클래스를 직접 Solider의 useStrategy()로 넘겼습니다.**
+
+--> 그렇다면!!! useStrategy() 안에 있는 runStrategy()는 바로~~~~ StrategyGun의 runStrategy()를 사용할 겁니다. 위 코드에서는 StrategyGun이 직접적으로 보이지는 않지만 메소드 내용은 같습니다. 중요한 건 MainDesignPattern에서 Strategy 객체 전체를 Soldier에 넘겼고 Solder의 메소드 연산 중에서 Strategy 객체 안에 정의되어 있는 runStrategy()를 콜백한 겁니다.
+
+![](http://i.imgur.com/dijTgQL.png)
+
+
+>> 참고로, 콜백은 쓰레드 프로그래밍에서 주로 사용됩니다. 만약 A, B가 서로 다른 쓰레드인 경우에는 B의 콜백이 A의 다른 연산에 영향을 주지 않기 위해 콜백이 완전히 끝났다는 신호를 A에게 알려줍니다.
