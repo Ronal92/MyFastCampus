@@ -1,4 +1,4 @@
-[ Date : 2017. 02. 13 ]
+[ Date : 2017. 02. 13(월) ]
 
 					------------------- Today's Topic -------------------
 									(1) 타이틀바 없애기
@@ -153,28 +153,144 @@
 
 ![](http://i.imgur.com/NOdJaTB.png)
 
-(1)
+
+(1) MyItemRecyclerViewAdapter()
 
 ![](http://i.imgur.com/wdnjuwT.png)
 
-(2)
+--> FiveFragment()에서 어뎁터 생성시 호출됩니다. FiveFragment()의 context를 받아 저장하고 이미지가 저장되어있는 datas도 받아서 저장합니다.
+
+(2) onCreateViewHolder()
 
 ![](http://i.imgur.com/23ot6yi.png)
 
-(3)
+--> 여기서는 리사이클러뷰에 저장될 이미지 아이템을 인플레이트 시킵니다. 뷰홀더에 담아서 반환해야 뷰홀더가 위젯에 이미지를 세팅시킬 때 시스템 리소스 부담을 줄일 수 있습니다.
+
+(3) onBindViewHolder()
 
 ![](http://i.imgur.com/29FacGc.png)
 
-(4)
+--> 뷰홀더에 있는 위젯과 datas에 는 이미지를 연결하여 화면에 보여주도록 합니다. 이 때, Glide를 사용하면 이미지를 비트맵이 아닌 Uri로 접근하여 많은 용량의 사진도 보여줄 수 있습니다.
+
+(4) getItemCount()
 
 ![](http://i.imgur.com/WsGxGJC.png)
 
-(5)
+--> datas에 담긴 이미지들의 사이즈를 반환해주어야 합니다.
+
+(5) ViewHolder class
 
 ![](http://i.imgur.com/AdNznau.png)
 
-
+--> onCreateViewHolder()에서 인플레이트한 이미지 아이템들의 위젯(R.id.id)을 사용할 변수(ImageView)에 할당합니다.
 
 
 #3. MySQL을 이용한 데이터베이스 맛보기
+
+- 목표 : 실제 안드로이드에 들어가기 전 DB에서 사용하는 CRUD들을 간접 경험합니다. 
+
+- 설치 : 구글에 MySQL 설치법 검색하면 워낙 많은 자료가 있기에 따로 설명드리지는 않겠습니다. 설치 시간은 1시간 예상하면 됩니다. ( 개인적으로 설치하는데 4시간 걸렸던............) 
+
+
+## 3.1 테이블 생성하기(Create)
+
+#### 사용법 : create table 테이블명 (컬럼명1 속성, 컬럼명2 속성);
+#### 예시1 
+				 create table bbs (
+				    bbsno int            -- 숫자는 int, float
+				    , title varchar(255) -- 숫자값 바이트의 문자열 입력시 사용
+				    , content text       -- 대용량의 데이터 입력시 사용
+				   );
+
+#### 예시2
+
+
+![](http://i.imgur.com/XMCphtx.png)
+
+테이블 생성!
+
+![](http://i.imgur.com/ZL7iJjY.png)
+
+## 3.2 데이터 입력하기(Insert)
+
+이제 값을 넣어보겠습니다.
+
+#### 사용법 :  insert into 테이블명(컬럼명1, 컬럼명2) value(숫자값,'문자값');
+
+#### 예시1 
+				
+				INSERT INTO bbs (bbsno, title, content) VALUES(2, '타이틀', '내용입니다');
+			
+#### 예시2
+
+
+![](http://i.imgur.com/NnbbyjV.png)
+
+값!!!
+
+![](http://i.imgur.com/ioXcvbL.png)
+
+## 3.3 데이터 읽기(Read)
+
+#### 사용법 : select 불러올컬럼명1, 컬럼명2 from 테이블명 where 컬럼명 = 값
+
+#### 예시1 : 
+
+				SELECT * FROM bbs;
+
+#### 예시2 
+
+![](http://i.imgur.com/T4QWzTR.png)
+
+## 3.4 데이터 수정(Update)
+
+#### 사용법 : update 테이블명 set 변경할컬럼명1 = 값, 컬럼명2 = 값 where 컬럼명 = 값
+
+#### 예시1 :
+
+				update bbs set title=”LeeSunShin” where bbsno = 2;
+
+#### 예시2 
+
+![](http://i.imgur.com/XQAEY1H.png)
+
+## 3.5 데이터 삭제(Delete)
+
+####사용법 : delete from 테이블명 where 컬럼명 = 값;
+
+#### 예시1 : 
+
+					delete from bbs where bbsno = 1;
+
+#### 예시2 
+
+![](http://i.imgur.com/hyoSlMy.png)
+
+
+
+
+## 3.6 id 자동증가 테이블 생성하기
+
+####  사용법 : create table 테이블명 (컬럼명1 속성 autoincrement primary key, 컬럼명2 속성);
+
+#### 예시
+
+				create table bbs2 (
+				    bbsno int primary key auto_increment not null -- 자동증가
+				    , title varchar(255) -- 숫자값 바이트의 문자열 입력시 사용
+				    , content text       -- 대용량의 데이터 입력시 사용
+				   , ndate datetime
+				   );
+   
+
+>> 자동증가 테이블에는 insert시에 값을 지정하지 않습니다.
+INSERT INTO bbs2 (title, content) VALUES('타이틀', '내용입니다');
+commit;
+
+>> 날짜 값 넣기
+insert into bbs1 (title, content, ndate) values("babo", "pooh", now());
+
+
+
+
 
