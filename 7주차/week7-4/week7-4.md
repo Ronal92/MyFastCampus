@@ -1,10 +1,9 @@
 [ Date : 2017. 02. 24 ]
 
------------------ Today's Topic ---------------------
-(1) TheadRainDrop
-(2)
-(3)
------------------------------------------------------
+					----------------- Today's Topic ---------------------
+								(1) TheadRainDrop
+								(2) Service
+					-----------------------------------------------------
 
  - 프로젝트 명 : [ThreadRaindrop] , [ServiceBasic]
  - 내용 : Thread를 이용하여 화면상으로 비가 계속 떨어지는 장면을 구현합니다.
@@ -172,6 +171,18 @@ Service는 안드로이드의 4대 컴포넌트(Activity, BroadCast Receiver, Co
 
 ## 2.4 코드( 연결 타입 서비스 )
 
+연결타입 서비스는 서비스와 다른 컴포넌트 간에 유기적인 통신을 하려고 사용합니다.
+
+bind service(연결 타입 서비스)를 사용하기 위해서는 다음의 과정이 필요합니다.
+
+				- 바인드 되는 서비스는 Service 클래스를 상속받습니다.
+				- 서비스가 바인드 되기 위해서는 onBind() 콜백 메소드를 구현합니다. ( 클라이언트들이 서비스와 상호작용할 수 있는 인터페이스를 정의한 IBinder 객체를 리턴합니다. )
+				- 클라이언트는 bindService()를 호출하여 서비스에 바인드합니다.
+				- 위 메소드를 호출할 때, 인자값으로 ServiceConnection의 구현객체를 전달하는데, 이것은 서비스와의 연결상태를 모니터링하는 역할을 합니다. 
+				- 모든 클라이언트가 서비스에서 언바인드(unbind)되면, 시스템은 (startService()로 시작된 서비스가 아닌 경우에 한하여) 서비스를 종료합니다. 
+				
+				( 출처 : [http://android-kr.tistory.com/283](http://android-kr.tistory.com/283) )
+
 ###2.4.1 출력 화면
 
 ![](http://i.imgur.com/EHdggwj.png)
@@ -194,11 +205,27 @@ Service는 안드로이드의 4대 컴포넌트(Activity, BroadCast Receiver, Co
 
 ###2.4.3 MainActivity 
 
-
-
 ![](http://i.imgur.com/rdKvQBL.png)
 
+(1) 서비스 객체로 사용할 인스턴스(bService)와 현재 컴포넌트와 서비스 간 연결 상태를 나타내는(isService)를 클래스의 멤버변수로 선언합니다.
+
+(2) 서비스와의 연결상태를 모니터링하는 인스턴스(conn)를 생성합니다.
+
+(3) onServiceConnected()는 서비스와 연결되었을 때 호출되는 함수로서, 클라이언트(MainActiviy)에서 onBind()를 호출하면 binder가 리턴되어 옵니다.
+
+(4) binder는 MyBinder 타입입니다. 따라서 MyService.MyBinder 참조변수가 받도록 합니다.
+
+(5) mb 참조변수는 getService()를 사용하여 MyService 객체를를 미리 선언한 bService가 가리키도록 합니다. 연결 상태를 true로 설정합니다.(isServiec = true)
 
 ![](http://i.imgur.com/PNjHuyT.png)
 
+(1) btnBind 버튼 : bindService()를 호출하여 현재 컴포넌트와 서비스를 연결합니다. 
+				
+				 첫번째 인자 : 바인드할 서비스를 가리키는 인텐트
+				 두번째 인자 : ServiceConnection의 구현 객체
+				 세번째 인자 : 바인딩 옵션 값 ( "BIND_AUTO_CREATE"는 서비스가 생성되어 있지 않을때 자동으로 생성하도록 합니다.)
+(2) btnUnbind 버튼 : 현재 연결되어 있다면 연결된 서비스와의 관계를 해제하고 isService를 false로 바꿔줍니다.
+
+(3) btnCallService 버튼 : 현재 서비스와 연결상태가 아니라면 서비스중이 아님을 사용자에게 알려줍니다. 
+현재 서비스와 연결상태라면, MyService 객체를 가리키고 있는 bService를 사용하여 getRandomNumber() 메소드를 사용할 수 있습니다. 여기서는 난수값을 화면상에 출력하도록 하였습니다.
 
